@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyFundAction 2025: Board Strategic Review</title>
+<style>
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/0/css/all.min.css');
+
+  :root{
+    --navy:#0f2436;
+    --navy2:#1a3a52;
+    --slate:#3c4a5c;
+    --accent:#c99b4a;
+    --accent-soft:#f4e6cd;
+    --red:#b5514a;
+    --red-bg:#faeeed;
+    --amber:#b8863f;
+    --amber-bg:#faf3e6;
+    --green:#3f7d6a;
+    --green-bg:#eaf4f0;
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --line:#e6e8ec;
+    --text:#26303b;
+    --muted:#7a8494;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Inter','Segoe UI',Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.65;
+    font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--navy2);}
+
+  /* ============ COVER ============ */
+  .cover{
+    position:relative;
+    background:linear-gradient(160deg,#0f2436 0%, #16324a 55%, #1a3a52 100%);
+    color:#fff;
+    padding:88px 64px 64px;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:"";
+    position:absolute; top:-40%; right:-10%;
+    width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle, rgba(201,155,74,0.18) 0%, transparent 70%);
+  }
+  .cover-inner{position:relative;z-index:2;max-width:1080px;margin:0 auto;}
+  .tag-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;}
+  .tag{
+    font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
+    padding:6px 14px;border-radius:100px;border:1px solid rgba(255,255,255,0.22);
+    color:#dbe2ec;backdrop-filter:blur(2px);
+  }
+  .tag.hi{background:var(--accent);color:#1a1408;border:none;font-weight:700;}
+  .cover h1{
+    font-size:38px;margin:0 0 14px;font-weight:700;letter-spacing:-0.6px;
+    max-width:820px;line-height:1.18;
+  }
+  .cover .sub{color:#aebccb;font-size:15px;max-width:760px;margin:6px 0 0;font-weight:400;}
+  .cover .meta{
+    margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border-top:1px solid rgba(255,255,255,0.14);padding-top:26px;
+  }
+  .cover .meta > div{
+    padding:0 22px;border-left:1px solid rgba(255,255,255,0.12);
+  }
+  .cover .meta > div:first-child{border-left:none;padding-left:0;}
+  .cover .meta .num{font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.4px;}
+  .cover .meta .lbl{font-size:12px;color:#93a2b3;margin-top:4px;line-height:1.35;}
+
+  .container{max-width:1080px;margin:0 auto;padding:0 40px 70px;}
+
+  /* ============ STORY SPINE ============ */
+  .spine{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:8px;
+    margin:32px 0 48px;
+    box-shadow:0 12px 30px -14px rgba(15,36,54,0.18);
+  }
+  
+  .spine a{
+    flex:1;text-decoration:none;font-size:12.5px;font-weight:600;color:var(--muted);
+    display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:10px;
+    transition:background .15s, color .15s;
+  }
+  .spine a:hover{background:#f2f4f7;color:var(--navy);}
+  .spine a .dot{
+    width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;
+  }
+  .spine .sep{color:var(--line);font-weight:300;}
+
+  /* ============ KPI CARDS ============ */
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:44px;}
+  .kpi-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px;position:relative;overflow:hidden;
+    box-shadow:0 6px 18px -12px rgba(15,36,54,0.15);
+  }
+  .kpi-card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);
+  }
+  .kpi-card.warn::before{background:var(--amber);}
+  .kpi-card.crit::before{background:var(--red);}
+  .kpi-card .num{font-size:25px;font-weight:800;color:var(--navy);letter-spacing:-0.5px;}
+  .kpi-card .label{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4;}
+
+  /* ============ ACT BLOCKS ============ */
+  .act{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    margin-bottom:20px;overflow:hidden;
+    box-shadow:0 10px 26px -18px rgba(15,36,54,0.2);
+  }
+  .act-head{
+    background:linear-gradient(120deg,var(--navy) 0%, var(--navy2) 100%);
+    color:#fff;padding:34px 42px;display:flex;align-items:center;gap:24px;position:relative;
+  }
+  .act-num{
+    font-size:42px;font-weight:800;color:var(--accent);opacity:.95;line-height:1;
+    min-width:64px;font-variant-numeric:tabular-nums;
+  }
+  .act-head-text h2{margin:0;font-size:22px;font-weight:700;letter-spacing:-0.3px;}
+  .act-head-text p{margin:6px 0 0;color:#b7c3d1;font-size:13.5px;}
+  .act-body{padding:38px 42px 42px;}
+
+  h3{color:var(--navy2);font-size:16px;margin:26px 0 10px;font-weight:700;letter-spacing:-0.1px;}
+  h4{font-size:12.5px;margin:20px 0 8px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700;}
+  p{margin:11px 0;color:#3a4553;}
+  ul,ol{padding-left:22px;}
+  li{margin-bottom:6px;}
+  strong{color:var(--navy);}
+
+  /* ============ TABLES ============ */
+  table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:13.8px;}
+  th,td{border-bottom:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top;}
+  th{background:#f7f8fa;color:var(--navy);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--line);}
+  tbody tr:hover td{background:#fafbfc;}
+  td.num, th.num{text-align:right;font-variant-numeric:tabular-nums;}
+
+  /* ============ CALLOUTS ============ */
+  .callout{
+    border-left:3px solid var(--navy2);background:#f3f5f8;padding:16px 20px;
+    border-radius:0 10px 10px 0;margin:18px 0;font-size:14px;
+  }
+  .callout.red{border-color:var(--red);background:var(--red-bg);}
+  .callout.yellow{border-color:var(--amber);background:var(--amber-bg);}
+  .callout.green{border-color:var(--green);background:var(--green-bg);}
+
+  .badge{display:inline-block;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:100px;margin-left:6px;vertical-align:middle;letter-spacing:.2px;}
+  .badge.red{background:var(--red);color:#fff;}
+  .badge.yellow{background:var(--amber);color:#fff;}
+  .badge.green{background:var(--green);color:#fff;}
+  .badge.gray{background:#9aa5b1;color:#fff;}
+
+  .gap-box{
+    border:1px dashed var(--red);background:var(--red-bg);border-radius:10px;
+    padding:16px 20px;margin:16px 0;font-size:13.8px;
+  }
+  .gap-box .gtitle{font-weight:700;color:var(--red);display:block;margin-bottom:5px;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;}
+
+  .glossary{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 32px;margin-bottom:32px;
+    box-shadow:0 8px 22px -16px rgba(15,36,54,0.18);
+  }
+  .glossary h3{margin-top:0;font-size:17px;}
+  .glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;margin-top:14px;}
+  @media(max-width:700px){.glossary-grid{grid-template-columns:1fr;}}
+  .gterm{padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .gterm:last-child, .gterm:nth-last-child(2){border-bottom:none;}
+  .gterm b{color:var(--navy);display:block;font-size:13.5px;margin-bottom:2px;}
+  .gterm span{color:var(--muted);}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+
+  .matrix-cell{font-weight:700;text-align:center;border-radius:6px;}
+  .m-high{background:var(--red-bg);color:var(--red);}
+  .m-med{background:var(--amber-bg);color:var(--amber);}
+  .m-low{background:var(--green-bg);color:var(--green);}
+
+  /* ============ BRIDGE TRANSITIONS ============ */
+  .bridge{
+    display:flex;align-items:flex-start;gap:16px;padding:20px 42px;
+    margin:-4px 0 20px;font-size:13.8px;color:var(--slate);font-style:italic;
+  }
+  .bridge .chevron{
+    font-size:20px;color:var(--accent);font-style:normal;flex-shrink:0;
+    width:34px;height:34px;border-radius:50%;background:var(--accent-soft);
+    display:flex;align-items:center;justify-content:center;margin-top:-2px;
+  }
+
+  /* ============ SVG CHART CONTAINERS ============ */
+  .chart-card{
+    background:#fafbfc;border:1px solid var(--line);border-radius:12px;
+    padding:24px 28px 18px;margin:18px 0 26px;
+  }
+  .chart-title{font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin-bottom:14px;}
+  .chart-note{font-size:11.5px;color:var(--muted);margin-top:8px;}
+  svg text{font-family:'Inter','Segoe UI',Arial,sans-serif;}
+
+  /* ============ FOOTER ============ */
+  .footer{text-align:center;padding:36px;color:var(--muted);font-size:12px;}
+  .footer .brandline{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;}
+  .footer .brandline .sq{width:8px;height:8px;background:var(--accent);border-radius:2px;}
+
+  /* ============ PRINT ============ */
+  @media print{
+    body{background:#fff;font-size:12.5px;}
+    .cover{padding:40px 30px;}
+    .cover::after{display:none;}
+    .spine{display:none;}
+    .act{box-shadow:none;border:1px solid #ccc;break-inside:avoid;margin-bottom:14px;}
+    .act-head{padding:16px 24px;background:var(--navy) !important; -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .act-body{padding:20px 24px;}
+    .kpi-card, .chart-card, .callout, .gap-box{break-inside:avoid;}
+    .bridge{padding:10px 24px;}
+    a{text-decoration:none;color:inherit;}
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:860px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr);}
+    .cover .meta{grid-template-columns:repeat(2,1fr);row-gap:20px;}
+    .cover .meta > div:nth-child(3){border-left:none;}
+  }
+  @media (max-width:640px){
+    .cover{padding:56px 24px 40px;}
+    .cover h1{font-size:27px;}
+    .container{padding:0 16px 50px;}
+    .act-body{padding:26px 22px;}
+    .act-head{padding:24px 22px;gap:16px;}
+    .act-num{font-size:32px;min-width:44px;}
+    .spine{flex-direction:column;gap:2px;}
+    .spine a{width:100%;}
+    .spine .sep{display:none;}
+    table{font-size:12.5px;}
+    th,td{padding:9px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="tag-row">
+      <span class="tag hi">Board-Level Strategic Review</span>
+      <span class="tag">FY2025 Distribution Report</span>
+      <span class="tag">Internal Governance Use Only</span>
+    </div>
+    <h1>MyFundAction 2025: The Story of the Year in Five Acts</h1>
+    <p class="sub">This report tells one story in five parts: where we started, what we aimed to do, what actually happened, what the numbers taught us, and what needs to happen next.</p>
+    <div class="meta">
+      <div><div class="num">$1.88M</div><div class="lbl">Reported Program Spend</div></div>
+      <div><div class="num">~236K</div><div class="lbl">Service Touches (dedup unconfirmed)</div></div>
+      <div><div class="num">06</div><div class="lbl">Narrative Acts</div></div>
+      <div><div class="num">07</div><div class="lbl">Critical Gaps Carried Into Act 4</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="spine">
+    <a href="#a1"><span class="dot">1</span>Where We Started</a>
+    <span class="sep">,</span>
+    <a href="#a2"><span class="dot">2</span>What We Aimed to Achieve</a>
+    <span class="sep">,</span>
+    <a href="#a3"><span class="dot">3</span>What Happened</a>
+    <span class="sep">,</span>
+    <a href="#a4"><span class="dot">4</span>What We Learned</a>
+    <span class="sep">,</span>
+    <a href="#a5"><span class="dot">5</span>What Must Happen Next</a>
+    <span class="sep">,</span>
+    <a href="#a6"><span class="dot">6</span>By Department</a>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="num">$1.88M</div><div class="label">Total Reported Spend</div></div>
+    <div class="kpi-card warn"><div class="num">~236K*</div><div class="label">Service Touches, *not deduplicated</div></div>
+    <div class="kpi-card crit"><div class="num">92.9%</div><div class="label">Spend in 2 of 7 Branches</div></div>
+    <div class="kpi-card crit"><div class="num">0</div><div class="label">Revenue Data Points Available</div></div>
+  </div>
+
+  <div class="glossary">
+    <h3>Key Terms Before You Start Reading</h3>
+    <p style="margin-top:0; color:var(--muted); font-size:13.5px;">This report uses a few terms specific to MyFundAction's work. Here's what each one means, in plain language, so nothing below assumes prior knowledge.</p>
+    <div class="glossary-grid">
+      <div class="gterm"><b>Branch</b><span>What MyFundAction calls each country office, Malaysia, Indonesia, Palestine, and so on. Each branch runs its own programs and reports its own spending.</span></div>
+      <div class="gterm"><b>QC4U (Qurban Care for Ummah)</b><span>MyFundAction's Qurban program. Qurban is an Islamic practice, done mainly in one season each year, where an animal (cow, goat, or sheep) is sacrificed and the meat is given to people in need. QC4U is how MyFundAction organizes and delivers that.</span></div>
+      <div class="gterm"><b>RTE (Ready-to-Eat)</b><span>Pre-made food packs handed directly to people, no cooking needed. Used when aid needs to reach a lot of people quickly, like in Palestine.</span></div>
+      <div class="gterm"><b>WASH</b><span>Short for Water, Sanitation, and Hygiene. Covers programs like building water wells or clean-water systems.</span></div>
+      <div class="gterm"><b>Service touch</b><span>One instance of one person receiving one form of help, one meal handed out, one water delivery, one share of Qurban meat. If the same person receives aid three times, that's three "touches," not three people. This is why the ~236,000 figure is not the same as "236,000 different people."</span></div>
+      <div class="gterm"><b>Deduplication</b><span>The process of checking whether the same person was counted more than once across different aid deliveries, so the final number reflects real, distinct people instead of total instances of help given. MyFundAction does not currently have a stated method for doing this.</span></div>
+      <div class="gterm"><b>$/touch (cost per touch)</b><span>Total money spent divided by the number of service touches. A rough cost measure, only fair to compare between programs that work the same way, not across very different kinds of aid.</span></div>
+      <div class="gterm"><b>Restricted vs. unrestricted funds</b><span>Restricted money is donated for one specific purpose only, e.g. "only for Gaza", and legally cannot be spent elsewhere. Unrestricted money can be used anywhere the organization needs it. This report currently has no data on how much of MyFundAction's funding is one versus the other.</span></div>
+      <div class="gterm"><b>Overhead / admin cost ratio</b><span>The share of total spending that goes to running the organization itself, salaries, offices, admin, rather than directly to aid programs. Most charities report this figure; typical ranges are 10 to 20%. MyFundAction has not yet reported one.</span></div>
+      <div class="gterm"><b>Flat fee</b><span>A cost that stays exactly the same no matter how much work was actually done. It's a red flag when it shows up unexpectedly, e.g. if a program costs "$12,000" every month regardless of whether it helped 500 people or 5,000, that's worth asking about.</span></div>
+      <div class="gterm"><b>Cash reserve / runway</b><span>How many months an organization could keep operating using only its savings, if no new donations came in at all. A basic measure of financial safety that this report does not yet have data for.</span></div>
+      <div class="gterm"><b>Iftar</b><span>The meal that breaks the daily fast during Ramadan. MyFundAction runs Iftar programs providing that meal to people who can't afford it.</span></div>
+      <div class="gterm"><b>Fidyah</b><span>A charitable payment in Islam, given (often as food) to compensate for a missed religious obligation. MyFundAction distributes Fidyah-funded aid on behalf of donors who owe it.</span></div>
+    </div>
+  </div>
+
+  <!-- ============ ACT 1 ============ -->
+  <div class="act" id="a1">
+    <div class="act-head">
+      <div class="act-num">01</div>
+      <div class="act-head-text"><h2>Where We Started</h2><p>The context and constraints the organization entered 2025 with</p></div>
+    </div>
+    <div class="act-body">
+      <p>MyFundAction entered 2025 running programs across seven places, Malaysia, Indonesia, Australia, USA, Middle East Africa, Palestine, and Turkiye. The work covers food security, WASH, health, education, disaster relief, and Qurban-based giving. This is a genuinely global charity, built up over several years.</p>
+      <p>Two things shaped where we started in 2025:</p>
+      <ul>
+        <li><strong>A donor base historically anchored in Malaysia</strong>, with Qurban-season giving (Apr to Jun) representing a recurring, large, and highly seasonal source of funds.</li>
+        <li><strong>An active humanitarian emergency in Gaza</strong>, which by 2025 had already established Palestine as a major, ongoing programmatic commitment rather than a one-off crisis response.</li>
+      </ul>
+
+      <div class="chart-card">
+        <div class="chart-title">Seven-Branch Footprint Entering 2025</div>
+        <svg viewBox="0 0 900 160" width="100%" style="max-height:180px;">
+          <line x1="40" y1="80" x2="860" y2="80" stroke="#dfe3e8" stroke-width="2"/>
+          <!-- 7 nodes -->
+          <g font-size="11.5" fill="#3a4553">
+            <!-- node template repeated -->
+            <circle cx="80" cy="80" r="9" fill="#c99b4a"/>
+            <text x="80" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">Malaysia</text>
+            <text x="80" y="108" text-anchor="middle" fill="#7a8494">Anchor donor base</text>
+
+            <circle cx="220" cy="80" r="7" fill="#1a3a52"/>
+            <text x="220" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">Indonesia</text>
+            <text x="220" y="108" text-anchor="middle" fill="#7a8494">Health / WASH</text>
+
+            <circle cx="360" cy="80" r="7" fill="#1a3a52"/>
+            <text x="360" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">Australia</text>
+            <text x="360" y="108" text-anchor="middle" fill="#7a8494">Community engagement</text>
+
+            <circle cx="500" cy="80" r="7" fill="#1a3a52"/>
+            <text x="500" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">USA</text>
+            <text x="500" y="108" text-anchor="middle" fill="#7a8494">Fundraising / awareness</text>
+
+            <circle cx="640" cy="80" r="8" fill="#b5514a"/>
+            <text x="640" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">Palestine</text>
+            <text x="640" y="108" text-anchor="middle" fill="#7a8494">Active emergency</text>
+
+            <circle cx="760" cy="80" r="7" fill="#1a3a52"/>
+            <text x="760" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">MEA</text>
+            <text x="760" y="108" text-anchor="middle" fill="#7a8494">Water / Quran</text>
+
+            <circle cx="840" cy="80" r="6" fill="#9aa5b1"/>
+            <text x="840" y="55" text-anchor="middle" font-weight="700" fill="#0f2436">Türkiye</text>
+            <text x="840" y="108" text-anchor="middle" fill="#7a8494">Single event</text>
+          </g>
+        </svg>
+        <div class="chart-note">Circle size is illustrative of relative FY2025 spend share, not to scale.</div>
+      </div>
+
+      <p>This report has no 2024 numbers to compare against, no prior-year financials, no revenue history. That means the board is looking at 2025 as a <strong>first data point</strong>, not a trend. We know where the money went this year. We don't yet know if that's new, or just how things have always been.</p>
+      <div class="callout yellow">🟡 <strong>Starting-point risk:</strong> Without a 2024 baseline or revenue history, the board cannot yet tell whether 2025's branch concentration (see Act 3) is a new development or a long-standing structural pattern.</div>
+    </div>
+  </div>
+
+  <div class="bridge"><span class="chevron">›</span> Given where we started, a global mission, a Malaysia-anchored donor base, and an active Gaza emergency, the next question is simple: what did we actually set out to do in 2025?</div>
+
+  <!-- ============ ACT 2 ============ -->
+  <div class="act" id="a2">
+    <div class="act-head">
+      <div class="act-num">02</div>
+      <div class="act-head-text"><h2>What We Aimed to Achieve</h2><p>The stated goals behind each major program line</p></div>
+    </div>
+    <div class="act-body">
+      <p>Looking across every 2025 program, the same five goals come up again and again:</p>
+      <table>
+        <tr><th>Objective</th><th>Representative Programs</th></tr>
+        <tr><td>Emergency food &amp; relief response</td><td>RTE distribution, hot meals, flood relief, MyRescue</td></tr>
+        <tr><td>Water, sanitation &amp; long-term infrastructure</td><td>WASH (Indonesia), Water Well Development (Nigeria, Uganda), Green Eco-Mosque</td></tr>
+        <tr><td>Seasonal religious giving converted into aid</td><td>Qurban Care for Ummah, Iftar programmes, Fidyah distribution</td></tr>
+        <tr><td>Education &amp; community development</td><td>The Better School, Quran Distribution, Youth Development</td></tr>
+        <tr><td>Vulnerable-group welfare support</td><td>Rezeki Ummat food boxes, Aid Relief for Homeless, We Care For You (child health)</td></tr>
+      </table>
+      <p>Put together, the plan for 2025 was this: <strong>turn a seasonal, Malaysia-heavy donor base into aid delivered all year, across many regions.</strong> Qurban giving would fund livestock-based aid. Smaller branches (USA, Australia, Turkiye) would focus on building donor relationships and visibility, not large-scale relief.</p>
+      <p>That's the goal, broad, sustained, spread across regions, that Act 3 now has to be measured against.</p>
+      <div class="callout">The goal was breadth <em>and</em> depth: broad geographic presence, sustained through the year, funded by a strong seasonal campaign but not solely dependent on it.</div>
+    </div>
+  </div>
+
+  <div class="bridge"><span class="chevron">›</span> With that goal in mind, spread-out, steady, multi-region impact, let's look at what the spending and delivery data actually show for 2025.</div>
+
+  <!-- ============ ACT 3 ============ -->
+  <div class="act" id="a3">
+    <div class="act-head">
+      <div class="act-num">03</div>
+      <div class="act-head-text"><h2>What Happened</h2><p>The 2025 results, branch by branch, program by program</p></div>
+    </div>
+    <div class="act-body">
+      <h3>Spend Concentrated Sharply in Two Branches</h3>
+      <p>The goal was spread-out impact. What happened: Malaysia and Palestine alone took <strong>92.9%</strong> of the $1,880,075 total budget. The other five branches split roughly 7% between them.</p>
+
+      <div class="chart-card">
+        <div class="chart-title">FY2025 Spend by Branch (USD)</div>
+        <svg viewBox="0 0 900 300" width="100%" style="max-height:320px;">
+          <!-- bars: Malaysia 1348839, Palestine 398400, MEA 75071, Indonesia 52973, USA 1750, Australia 1716, Turkiye 1326 -->
+          <!-- scale: max ~1,348,839 -> bar max width 700px from x=190 -->
+          <g font-size="12" fill="#3a4553">
+            <!-- Malaysia -->
+            <text x="10" y="34" font-weight="600" fill="#0f2436">Malaysia</text>
+            <rect x="130" y="18" width="700" height="26" rx="5" fill="#c99b4a"/>
+            <text x="838" y="36" font-weight="700" fill="#0f2436">$1,348,839</text>
+
+            <!-- Palestine -->
+            <text x="10" y="76" font-weight="600" fill="#0f2436">Palestine</text>
+            <rect x="130" y="60" width="207" height="26" rx="5" fill="#1a3a52"/>
+            <text x="345" y="78" font-weight="700" fill="#0f2436">$398,400</text>
+
+            <!-- MEA -->
+            <text x="10" y="118" font-weight="600" fill="#0f2436">Middle East Africa</text>
+            <rect x="130" y="102" width="39" height="26" rx="5" fill="#1a3a52" opacity="0.85"/>
+            <text x="177" y="120" font-weight="700" fill="#0f2436">$75,071</text>
+
+            <!-- Indonesia -->
+            <text x="10" y="160" font-weight="600" fill="#0f2436">Indonesia</text>
+            <rect x="130" y="144" width="28" height="26" rx="5" fill="#1a3a52" opacity="0.7"/>
+            <text x="166" y="162" font-weight="700" fill="#0f2436">$52,973</text>
+
+            <!-- USA -->
+            <text x="10" y="202" font-weight="600" fill="#0f2436">USA</text>
+            <rect x="130" y="186" width="4" height="26" rx="2" fill="#9aa5b1"/>
+            <text x="142" y="204" font-weight="700" fill="#0f2436">$1,750</text>
+
+            <!-- Australia -->
+            <text x="10" y="244" font-weight="600" fill="#0f2436">Australia</text>
+            <rect x="130" y="228" width="4" height="26" rx="2" fill="#9aa5b1"/>
+            <text x="142" y="246" font-weight="700" fill="#0f2436">$1,716</text>
+
+            <!-- Turkiye -->
+            <text x="10" y="286" font-weight="600" fill="#0f2436">Türkiye</text>
+            <rect x="130" y="270" width="3" height="26" rx="2" fill="#9aa5b1"/>
+            <text x="141" y="288" font-weight="700" fill="#0f2436">$1,326</text>
+          </g>
+        </svg>
+        <div class="chart-note">Bar length scaled to Malaysia (largest branch). Smaller branches shown at true proportional (near-zero) scale intentionally.</div>
+      </div>
+
+      <p style="font-size:13px; color:var(--muted);"><em>Reminder: "Service Touches" means individual instances of aid given, not confirmed unique people. "$/Touch" is total spend divided by that number, useful only when comparing similar kinds of programs to each other, see Key Terms above.</em></p>
+
+      <table>
+        <tr><th>Branch</th><th class="num">Budget</th><th class="num">Service Touches</th><th class="num">$/Touch</th></tr>
+        <tr><td>Malaysia</td><td class="num">$1,348,839</td><td class="num">~58,700</td><td class="num">$23.00</td></tr>
+        <tr><td>Palestine</td><td class="num">$398,400</td><td class="num">~138,000</td><td class="num">$2.89</td></tr>
+        <tr><td>Middle East Africa</td><td class="num">$75,071</td><td class="num">~17,200</td><td class="num">$4.37</td></tr>
+        <tr><td>Indonesia</td><td class="num">$52,973</td><td class="num">~19,200</td><td class="num">$2.76</td></tr>
+        <tr><td>USA</td><td class="num">$1,750</td><td class="num">~2,250</td><td class="num">$0.78</td></tr>
+        <tr><td>Australia</td><td class="num">$1,716</td><td class="num">~440</td><td class="num">$3.90</td></tr>
+        <tr><td>Turkiye</td><td class="num">$1,326</td><td class="num">~100</td><td class="num">$13.26</td></tr>
+      </table>
+
+      <h3>One Program Carried the Year</h3>
+      <p>Inside Malaysia, one seasonal program, <strong>Qurban Care for Ummah (QC4U)</strong> (see Key Terms: this is MyFundAction's animal-sacrifice-and-meat-distribution program, run mainly in one season each year), spent $770,295. That's <strong>41% of the whole organization's 2025 budget</strong>, spent in just three months (April to June).</p>
+
+      <div class="chart-card">
+        <div class="chart-title">2025 Spend Timeline, Seasonal Concentration</div>
+        <svg viewBox="0 0 900 130" width="100%" style="max-height:150px;">
+          <line x1="40" y1="70" x2="860" y2="70" stroke="#dfe3e8" stroke-width="2"/>
+          <g font-size="11" fill="#7a8494">
+            <text x="40" y="95">Jan</text>
+            <text x="180" y="95">Mar</text>
+            <text x="320" y="95">May</text>
+            <text x="460" y="95">Jul</text>
+            <text x="600" y="95">Sep</text>
+            <text x="740" y="95">Nov</text>
+            <text x="850" y="95">Dec</text>
+          </g>
+          <!-- QC4U bump around Apr-Jun -->
+          <path d="M40,70 L220,70 Q280,10 340,70 L500,70 Q520,55 560,70 L620,70 Q640,60 680,70 L860,70"
+                fill="none" stroke="#c99b4a" stroke-width="3"/>
+          <circle cx="280" cy="34" r="5" fill="#c99b4a"/>
+          <text x="280" y="20" text-anchor="middle" font-weight="700" fill="#0f2436" font-size="12">QC4U, $770K (41% of FY)</text>
+          <circle cx="560" cy="62" r="4" fill="#1a3a52"/>
+          <text x="560" y="50" text-anchor="middle" font-weight="600" fill="#1a3a52" font-size="10.5">Palestine RTE, Apr</text>
+        </svg>
+        <div class="chart-note">Illustrative shape of spend concentration, not a precise monthly plot.</div>
+      </div>
+
+      <h3>Palestine Delivered at Scale</h3>
+      <p>Palestine reached more people than any other branch, about 138,000 service touches. A 72,000-person Ready-to-Eat distribution in April drove most of that, followed by monthly hot-meal and clean-water deliveries the rest of the year.</p>
+
+      <h3>Smaller Branches Stayed Small</h3>
+      <p>USA, Australia, and Turkiye each spent well under 1% of the total budget, running small community activities (youth workshops, picnics, small iftar events) rather than large-scale relief. Was that the plan, or did these branches just not get funded? The data alone can't tell us.</p>
+
+      <h3>Branch-by-Branch: What Each Number Actually Means</h3>
+      <p>The table above shows what each branch spent and reached. It doesn't say what that number means for that branch specifically. Here's each one read on its own terms, not stacked against the others:</p>
+
+      <div class="two-col">
+        <div class="gap-box" style="border-color:var(--accent);background:var(--accent-soft);">
+          <span class="gtitle" style="color:#8a6a2e;">Malaysia — Our Anchor, Riding on One Program</span>
+          $1,348,839 · ~58,700 touches · 72% of FY spend<br><br>
+          One program (QC4U) makes up 41% of the <em>whole organization's</em> budget, not just Malaysia's. Malaysia's health as a branch and the organization's seasonal risk are now the same question. A weak Qurban season wouldn't just hurt Malaysia, it would hurt our whole year.
+        </div>
+        <div class="gap-box">
+          <span class="gtitle">Palestine — Reaches the Most People, Has the Thinnest Paperwork</span>
+          $398,400 · ~138,000 touches · 21% of FY spend<br><br>
+          Reaches more people per dollar than any other branch. But several monthly costs come in at the same $12,000, regardless of how many people were reached, and the paperwork is thinner than Malaysia's. This is our highest-value branch to donors, and our highest-risk branch with auditors.
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:16px;">
+        <div class="gap-box" style="border-color:var(--green);background:var(--green-bg);">
+          <span class="gtitle" style="color:var(--green);">Middle East Africa — Small, and Genuinely Efficient</span>
+          $75,071 · ~17,200 touches · $4.37/touch<br><br>
+          Second-best cost per person reached in the whole organization. But its water wells are priced the same flat fee no matter the size of the job, the same question we need to ask Palestine, just smaller here.
+        </div>
+        <div class="gap-box" style="border-color:var(--green);background:var(--green-bg);">
+          <span class="gtitle" style="color:var(--green);">Indonesia — Our Best Number, Barely Mentioned</span>
+          $52,973 · ~19,200 touches · $2.76/touch<br><br>
+          The best cost-per-person figure anywhere in the organization, yet it gets the least attention in this report. Worth finding out <em>why</em> this branch works so well before assuming we can copy it elsewhere.
+        </div>
+      </div>
+
+      <div class="gap-box" style="margin-top:16px;">
+        <span class="gtitle">USA, Australia, Turkiye — Small on Purpose, or Just Underfunded?</span>
+        Combined: $4,792, under 0.3% of the year's spend, small community activity only. Act 2 called this a deliberate "donor-engagement" role. Nothing in the actual 2025 data proves that, versus the simpler explanation that these branches just didn't get funded. Until we set a real success measure for what these branches are supposed to do, they'll keep getting judged against relief branches they were never meant to match.
+      </div>
+
+
+      <h3>Documentation Was Uneven</h3>
+      <p>Photo and media evidence varied a lot by program, strong for Palestine's RTE program and Malaysia's QC4U, thin or missing for several Quran Distribution entries and the Nigeria/Uganda water wells.</p>
+
+      <div class="callout yellow">🟡 <strong>The gap between plan and reality:</strong> Act 2 aimed for spread-out, steady impact. Act 3 shows heavy concentration driven by one season. That gap, not the numbers by themselves, is the real story of 2025, and it's what the board needs to dig into next.</div>
+    </div>
+  </div>
+
+  <div class="bridge"><span class="chevron">›</span> The gap between the plan and the results raises a harder question: what does this data actually prove, and what does it leave unanswered? That's where we need to look closer next.</div>
+
+  <!-- ============ ACT 4 ============ -->
+  <div class="act" id="a4">
+    <div class="act-head">
+      <div class="act-num">04</div>
+      <div class="act-head-text"><h2>What We Learned</h2><p>What the results actually prove, and the limits of what they prove</p></div>
+    </div>
+    <div class="act-body">
+      <h3>Lesson 1: The Concentration Might Be About Funding, Not Choice</h3>
+      <p>The 92.9% concentration in Malaysia and Palestine looks like a strategic imbalance. But without revenue data, we can't tell if we chose this, or if the money simply came in earmarked this way (restricted Qurban funds, Gaza-specific donations). This is the single biggest open question from the year.</p>
+
+      <h3>Lesson 2: Our Impact Number Is Probably Inflated</h3>
+      <p>The ~236,000 figure just adds up every program's count. In Palestine especially, the same households likely received RTE packs, hot meals, clean water, and Qurban meat, sometimes all in the same month. Without a method for removing duplicates, treat this number as <strong>total service touches, not verified unique people reached.</strong></p>
+
+      <h3>Lesson 3: You Can't Compare "Efficiency" Across Different Kinds of Programs</h3>
+      <p>Malaysia's $23 per person looks worse than Palestine's $2.89. But a Qurban cow feeding dozens of people once isn't the same kind of thing as one RTE pack feeding one person once. The original "8 times less efficient" claim was a guess, not a proven fact, and should be labeled that way until someone actually checks it.</p>
+      <p style="font-size:13.8px;">Here's why the comparison breaks: in Malaysia, one animal is bought once and its meat is shared across many households, so the "cost per person" divides a big one-time purchase across a lot of people, but it's still one big single expense. In Palestine, RTE packs are bought and handed out one at a time, so the cost naturally spreads out more evenly per person. Comparing the two "cost per person" numbers side by side makes it look like Malaysia is being wasteful, when really the two programs are built completely differently and were never meant to be measured the same way.</p>
+
+      <h3>Lesson 4: We're Missing Half the Financial Picture</h3>
+      <p>This whole analysis only looks at spending. We can't see revenue, overhead costs, cash reserves, or which funds are restricted. Any claim about "sustainability" right now is a guess, not a finding.</p>
+
+      <h3>Lesson 5: One Year Isn't a Trend</h3>
+      <p>What looked like a "front-loaded spending trend" is really just <em>this year's</em> seasonal pattern. Calling it a trend claims more than one year of data can actually support.</p>
+
+      <h4>Consolidated Risk View</h4>
+      <div class="chart-card">
+        <div class="chart-title">Risk Likelihood × Impact Map</div>
+        <svg viewBox="0 0 560 380" width="100%" style="max-height:400px;">
+          <!-- axes -->
+          <line x1="90" y1="20" x2="90" y2="330" stroke="#dfe3e8" stroke-width="1.5"/>
+          <line x1="90" y1="330" x2="540" y2="330" stroke="#dfe3e8" stroke-width="1.5"/>
+          <text x="315" y="365" text-anchor="middle" font-size="12" fill="#7a8494" font-weight="600">Likelihood →</text>
+          <text x="30" y="175" text-anchor="middle" font-size="12" fill="#7a8494" font-weight="600" transform="rotate(-90 30 175)">Impact →</text>
+          <!-- gridlines -->
+          <line x1="240" y1="20" x2="240" y2="330" stroke="#eef0f3" stroke-width="1"/>
+          <line x1="390" y1="20" x2="390" y2="330" stroke="#eef0f3" stroke-width="1"/>
+          <line x1="90" y1="225" x2="540" y2="225" stroke="#eef0f3" stroke-width="1"/>
+          <line x1="90" y1="120" x2="540" y2="120" stroke="#eef0f3" stroke-width="1"/>
+
+          <!-- Risk points -->
+          <!-- Double-counting: High/High -->
+          <circle cx="460" cy="70" r="9" fill="#b5514a"/>
+          <text x="460" y="55" text-anchor="middle" font-size="10.5" fill="#0f2436" font-weight="600">Double-counting</text>
+
+          <!-- No revenue data: High/High -->
+          <circle cx="410" cy="90" r="9" fill="#b5514a"/>
+          <text x="330" y="100" text-anchor="middle" font-size="10.5" fill="#0f2436" font-weight="600">No revenue/overhead data</text>
+
+          <!-- Palestine docs: Med/High -->
+          <circle cx="300" cy="80" r="8" fill="#b5514a"/>
+          <text x="230" y="70" text-anchor="middle" font-size="10.5" fill="#0f2436" font-weight="600">Palestine doc gaps</text>
+
+          <!-- Qurban concentration: Med/Med -->
+          <circle cx="290" cy="200" r="7" fill="#b8863f"/>
+          <text x="290" y="185" text-anchor="middle" font-size="10.5" fill="#0f2436" font-weight="600">Qurban concentration</text>
+
+          <!-- Flat-fee wells: Med/Low -->
+          <circle cx="285" cy="290" r="6" fill="#3f7d6a"/>
+          <text x="285" y="275" text-anchor="middle" font-size="10.5" fill="#0f2436" font-weight="600">Flat-fee wells ($14K)</text>
+
+          <text x="130" y="40" font-size="10.5" fill="#9aa5b1">Low</text>
+          <text x="500" y="40" font-size="10.5" fill="#9aa5b1">High</text>
+        </svg>
+        <div class="chart-note">Bubble position is qualitative (from the risk register below), not derived from a scored model.</div>
+      </div>
+
+      <table>
+        <tr><th>Risk</th><th style="width:100px;">Likelihood</th><th style="width:100px;">Impact</th><th style="width:110px;">Priority</th></tr>
+        <tr><td>Beneficiary double-counting overstates impact to donors</td><td class="matrix-cell m-high">High</td><td class="matrix-cell m-high">High</td><td class="matrix-cell m-high">Critical</td></tr>
+        <tr><td>No revenue/overhead data blocks sustainability assessment</td><td class="matrix-cell m-high">High</td><td class="matrix-cell m-high">High</td><td class="matrix-cell m-high">Critical</td></tr>
+        <tr><td>Palestine documentation gaps invite donor/auditor scrutiny</td><td class="matrix-cell m-med">Medium</td><td class="matrix-cell m-high">High</td><td class="matrix-cell m-high">Critical</td></tr>
+        <tr><td>Qurban concentration creates cash-flow volatility</td><td class="matrix-cell m-med">Medium</td><td class="matrix-cell m-med">Medium</td><td class="matrix-cell m-med">Moderate</td></tr>
+        <tr><td>Flat-fee water well costs raise audit questions ($14K exposure)</td><td class="matrix-cell m-med">Medium</td><td class="matrix-cell m-low">Low</td><td class="matrix-cell m-med">Moderate</td></tr>
+      </table>
+
+      <div class="gap-box">
+        <span class="gtitle">What Would Close These Gaps</span>
+        Revenue statement by branch and restriction status · Admin/overhead cost ratio · Beneficiary deduplication methodology · Post-distribution outcome verification (e.g., wells inspected 90+ days out) · Country-level compliance/registration status.
+      </div>
+
+      <div class="callout red"><strong>The honest conclusion:</strong> 2025 delivered real, large-scale humanitarian work. But we can't yet say it was efficient, sustainable, or measured accurately. That's what the board needs to carry into the next part.</div>
+    </div>
+  </div>
+
+  <div class="bridge"><span class="chevron">›</span> Knowing what we don't know only helps if it changes what we do next. This final part turns those lessons into concrete, time-bound actions.</div>
+
+  <!-- ============ ACT 5 ============ -->
+  <div class="act" id="a5">
+    <div class="act-head">
+      <div class="act-num">05</div>
+      <div class="act-head-text"><h2>What Must Happen Next</h2><p>Decisions, actions, and the questions that unlock them</p></div>
+    </div>
+    <div class="act-body">
+
+      <div class="chart-card">
+        <div class="chart-title">Action Timeline</div>
+        <svg viewBox="0 0 900 140" width="100%" style="max-height:150px;">
+          <line x1="60" y1="70" x2="840" y2="70" stroke="#dfe3e8" stroke-width="2"/>
+          <!-- 30 days -->
+          <circle cx="140" cy="70" r="8" fill="#c99b4a"/>
+          <text x="140" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f2436">30 Days</text>
+          <text x="140" y="95" text-anchor="middle" font-size="10.5" fill="#7a8494">Revenue + overhead</text>
+          <text x="140" y="108" text-anchor="middle" font-size="10.5" fill="#7a8494">data request</text>
+
+          <!-- 60-90 days -->
+          <circle cx="400" cy="70" r="8" fill="#1a3a52"/>
+          <text x="400" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f2436">60 to 90 Days</text>
+          <text x="400" y="95" text-anchor="middle" font-size="10.5" fill="#7a8494">Independent audit +</text>
+          <text x="400" y="108" text-anchor="middle" font-size="10.5" fill="#7a8494">KPI reclassification</text>
+
+          <!-- 3-6 months -->
+          <circle cx="640" cy="70" r="8" fill="#1a3a52"/>
+          <text x="640" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f2436">3 to 6 Months</text>
+          <text x="640" y="95" text-anchor="middle" font-size="10.5" fill="#7a8494">Multi-year baseline +</text>
+          <text x="640" y="108" text-anchor="middle" font-size="10.5" fill="#7a8494">fundraising diversification</text>
+
+          <!-- long term -->
+          <circle cx="800" cy="70" r="8" fill="#9aa5b1"/>
+          <text x="800" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f2436">Long-Term</text>
+          <text x="800" y="95" text-anchor="middle" font-size="10.5" fill="#7a8494">Strategic scope</text>
+          <text x="800" y="108" text-anchor="middle" font-size="10.5" fill="#7a8494">decision</text>
+        </svg>
+      </div>
+
+      <h3>Immediate, Next 30 Days</h3>
+      <ol>
+        <li>Request a full revenue statement by branch and restriction status, this unlocks nearly every other open question.</li>
+        <li>Request the organization-wide admin/overhead cost ratio.</li>
+        <li>Request management's beneficiary deduplication methodology, or confirmation that none currently exists.</li>
+        <li>Correct the reporting-date anomalies (2026-dated entries inside the "2025" report).</li>
+      </ol>
+
+      <h3>Medium-Term, 3 to 6 Months</h3>
+      <ol>
+        <li>Commission independent field verification for a sample of Palestine and MEA distributions, prioritizing the ~$128,000 in flagged, thinly-itemized spend.</li>
+        <li>Begin building a rolling multi-year data set so 2026 can be measured against a genuine baseline.</li>
+        <li>Diversify the fundraising calendar beyond Qurban season, but only once actual revenue concentration is confirmed, not assumed.</li>
+      </ol>
+
+      <h3>Long-Term</h3>
+      <ol>
+        <li>Make a deliberate strategic choice: global brand with symbolic small-branch presence, or focused Malaysia + Palestine/MENA relief specialist, decide this only after revenue data clarifies whether today's concentration is a choice or a constraint.</li>
+        <li>Build a contingency reserve fund once real reserve/runway figures are available.</li>
+        <li>Introduce distinct KPI sets for relief-delivery branches versus donor-engagement branches (USA, Australia, Turkiye), so both are measured fairly against what they're actually meant to do.</li>
+      </ol>
+
+      <h3>Decisions Required from the Board</h3>
+      <table>
+        <tr><th>Decision</th><th>Why It Matters</th><th>Recommended Option</th><th>Timeline</th></tr>
+        <tr><td>Withhold final strategic sign-off pending revenue &amp; overhead data</td><td>Cannot assess sustainability without it</td><td>Request from management before next board cycle</td><td>30 days</td></tr>
+        <tr><td>Commission independent verification audit (Palestine + MEA)</td><td>Highest-scrutiny region; thin documentation on smaller tranches</td><td>Third-party audit scoped to flagged $128K</td><td>60 days</td></tr>
+        <tr><td>Require beneficiary deduplication methodology</td><td>Public impact figures may overstate true reach</td><td>Management submits methodology or revised figures</td><td>30 days</td></tr>
+        <tr><td>Decide strategic scope (global vs. focused)</td><td>92.9% concentration already reflects de facto strategy</td><td>Defer until revenue data clarifies choice vs. constraint</td><td>Next quarter</td></tr>
+        <tr><td>Define separate KPIs for token-scale branches</td><td>Currently blended inappropriately into "impact" metrics</td><td>Reclassify as donor-engagement units with own KPIs</td><td>90 days</td></tr>
+      </table>
+
+      <h3>Questions to Ask Management, In Priority Order</h3>
+      <ol>
+        <li>What was total 2025 revenue, by source and restriction status?</li>
+        <li>Is ~236,000 unique individuals or total service touches, what's the deduplication method?</li>
+        <li>What is our admin/overhead cost ratio versus sector benchmarks (typically 10 to 20%)?</li>
+        <li>What are our cash reserves, in months of runway?</li>
+        <li>Can Nigeria/Uganda water wells be independently verified as operational 90+ days post-installation?</li>
+        <li>Why do multiple Palestine monthly tranches show identical $12,000 costs regardless of beneficiary variation?</li>
+        <li>What is the strategic rationale for USA, Australia, and Turkiye as full branches?</li>
+        <li>Are we legally registered to distribute aid in every listed country?</li>
+      </ol>
+
+      <h3>Dashboard to Track From Here Forward</h3>
+      <table>
+        <tr><th>KPI</th><th>Frequency</th></tr>
+        <tr><td>Revenue by source + funding diversification index</td><td>Quarterly</td></tr>
+        <tr><td>Program vs. admin/fundraising cost ratio</td><td>Quarterly</td></tr>
+        <tr><td>Unique (deduplicated) beneficiaries vs. total service touches</td><td>Quarterly</td></tr>
+        <tr><td>Cash reserve / months of runway</td><td>Monthly</td></tr>
+        <tr><td>Post-distribution outcome verification rate</td><td>Quarterly</td></tr>
+        <tr><td>Total spend by branch (% of total)</td><td>Monthly</td></tr>
+        <tr><td>% of programs with complete verification documentation</td><td>Monthly</td></tr>
+      </table>
+
+      <div class="callout"><strong>Putting it together:</strong> We started 2025 with a global mission and a Malaysia-anchored funding base (Part 1). We aimed for spread-out, steady impact (Part 2). We delivered real scale, but concentrated in two branches around one season (Part 3). We learned our impact and efficiency numbers are less certain than they look (Part 4). What comes next isn't more programs, it's closing the data gaps standing between us and a board that can say with confidence where this mission is headed (Part 5).</div>
+    </div>
+  </div>
+
+  <div class="bridge"><span class="chevron">›</span> These findings don't belong to one team. Marketing, Finance, and Operations each hold a piece of the fix, and each needs a different next step, not a copy of the same report.</div>
+
+  <!-- ============ ACT 6: BY DEPARTMENT ============ -->
+  <div class="act" id="a6">
+    <div class="act-head">
+      <div class="act-num">06</div>
+      <div class="act-head-text"><h2>What This Means, By Department</h2><p>The same findings, translated into what each function should do differently</p></div>
+    </div>
+    <div class="act-body">
+      <p>A report that only shows beneficiaries reached tells Operations something useful, and tells Marketing and Finance almost nothing. Below, the same 2025 findings are read again, this time through each department's own decisions.</p>
+
+      <h3><span class="badge gray" style="margin-left:0;">MARKETING</span> &nbsp;Giving Calendar &amp; Channel Effectiveness</h3>
+      <table>
+        <tr><th>Finding (from Acts 3–4)</th><th>So What for Marketing</th></tr>
+        <tr><td>41% of FY spend, funded by giving, sits inside one 3-month Qurban window</td><td>The acquisition calendar is almost certainly just as concentrated as the spend calendar. Map donor acquisition by month; if giving is this seasonal too, off-season campaigns aren't a nice-to-have, they're the only lever against cash-flow volatility.</td></tr>
+        <tr><td>0 revenue-by-source data points exist</td><td>Without this, Marketing cannot know which channel, campaign, or appeal actually produced this year's donations. Every channel-effectiveness claim currently made is an assumption, not a measured result.</td></tr>
+        <tr><td>USA, Australia, Türkiye operate at donor-engagement scale, not relief scale</td><td>If these branches are meant to build donor relationships rather than deliver aid, Marketing, not Operations, should own their success metric (reach, engagement, conversion to Malaysia/Palestine giving), not a beneficiary count that will always look small.</td></tr>
+      </table>
+
+      <h3><span class="badge gray" style="margin-left:0;">FINANCE</span> &nbsp;Cost Basis &amp; Solvency</h3>
+      <table>
+        <tr><th>Finding (from Acts 3–4)</th><th>So What for Finance</th></tr>
+        <tr><td>Multiple Palestine tranches show identical $12,000 costs regardless of beneficiary count</td><td>This is the single most auditable line in the whole report. Finance should confirm whether this is a genuine flat operating cost or a placeholder figure, before an external auditor asks the same question less kindly.</td></tr>
+        <tr><td>Flat-fee water wells carry ~$14,000 of similarly unexplained cost consistency</td><td>Same issue, smaller scale. Worth resolving both at once, likely the same root cause (a standard quote used as an actual, or a cost genuinely fixed regardless of scope, either answer is fine, but it needs to be a stated answer).</td></tr>
+        <tr><td>Admin/overhead ratio and cash reserves: currently unreported</td><td>These are two of the most basic solvency figures a board can ask for, and neither exists yet. This is Finance's most time-sensitive open item, everything else in this report is easier to act on once this exists.</td></tr>
+      </table>
+
+      <h3><span class="badge gray" style="margin-left:0;">OPERATIONS</span> &nbsp;Measurement Method, Not More Data Collection</h3>
+      <table>
+        <tr><th>Finding (from Acts 3–4)</th><th>So What for Operations</th></tr>
+        <tr><td>~236,000 is a raw additive sum with no stated deduplication method</td><td>This is an Operations-owned gap, not a Finance or Marketing one. A standard deduplication rule (even a conservative estimate, clearly labeled) is more defensible than an unlabeled inflated number.</td></tr>
+        <tr><td>Malaysia $23/touch vs. Palestine $2.89/touch was framed as an efficiency gap</td><td>This comparison should never have been made across program types. The fix is procedural: every project is measured against its own stated objective, not against another branch's unrelated program.</td></tr>
+        <tr><td>Documentation strength varies sharply by branch and program</td><td>A monthly validation checkpoint, not a year-end scramble, is what would have caught Palestine's and MEA's documentation thinness while it was still fixable, not after the board already saw it.</td></tr>
+      </table>
+
+      <div class="callout green">✅ <strong>The bottom line:</strong> None of these three teams need a new report from Operations. They need this same data, read once through their own decisions. That change alone, not collecting more data, is the fastest improvement we can make before the next board cycle.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="brandline"><span class="sq"></span>MyFundAction · 2025 Distribution Report, Board Strategic Review<span class="sq"></span></div>
+  Internal Governance Use Only
+</div>
+
+</body>
+</html>
